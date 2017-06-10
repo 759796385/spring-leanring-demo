@@ -1,0 +1,7 @@
+hello world!
+MANIFEST.MF中声明的应用版本号 version :${application.version}
+MANIFEST.MF中声明的被格式化后的应用版本号,v开头,formatted-version: ${application.formatted-version}
+当前Spring Boot的版本号,spring-boot.version:${spring-boot.version}
+当前Spring Boot被格式化后的版本号,V开头，spring-boot.formatted-version:${spring-boot.formatted-version}
+NAME代表一种ANSI编码：${Ansi.NAME}
+MANIFEST.MF中声明的应用title：${application.title}

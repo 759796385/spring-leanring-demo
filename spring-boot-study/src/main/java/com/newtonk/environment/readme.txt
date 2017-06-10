@@ -1,0 +1,1 @@
+这个包下记录的spring中environment中相关概念，和spring boot没太大关联

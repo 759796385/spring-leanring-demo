@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationListener=com.newtonk.listener.ApplicationStartingEvenTest
+org.springframework.boot.diagnostics.FailureAnalyzer=com.newtonk.analyzers.MyFailureAnalyzers
