@@ -11,6 +11,7 @@
         <module>spring-learning-demo</module>
         <module>spring-boot-study</module>
         <module>java8-study</module>
+        <module>spring-mvc-study</module>
     </modules>
     <name>spring-core Maven Webapp</name>
   <url>http://maven.apache.org</url>
