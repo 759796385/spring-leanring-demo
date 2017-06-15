@@ -3,34 +3,97 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>spring-core</artifactId>
-        <groupId>com.newtonk</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>4.3.9.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <packaging>war</packaging>
     <artifactId>spring-mvc-study</artifactId>
+    <version>0.8.9.1-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
     <dependencies>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>1.5.2.RELEASE</version>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <version>1.5.2.RELEASE</version>
-        <scope>test</scope>
-    </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <!-- web 模块由 spring-web, spring-webmvc, spring-websocket, and spring-webmvc-portlet 这四个模块组成-->
+        <!--spring-web 提供基础面向web的特性 如多文件上传，使用Servlet监听器初试化ioc容器，以及面向web的IOC容器-->
+        <!--spring-webmvc 模块包含 spring mvc和rest 服务实现。Spring的MVC框架提供 清晰的分离的领域模型代码和web表单，并集成了Spring框架的所有其他特性。-->
+        <!--spring-webmvc-portlet 模块 不知道啥用-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <argLine>
+                        -Xms256m -Xmx512m -XX:PermSize=256m -XX:MaxPermSize=256m
+                    </argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <systemProperties>
+                        <!--自定义配置文件，针对每台服务器可能有所不同时做配置,避免在包内改东西-->
+                        <!--<app.config.file>${project.basedir}/../pub/config.properties</app.config.file>-->
+                        <file.encoding>UTF-8</file.encoding>
+                    </systemProperties>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <path>/</path>
+                    <port>80</port>
+                    <!--<httpsPort>443</httpsPort>-->
+                    <!-- 开发用，热部署 -->
+                    <contextReloadable>true</contextReloadable>
+                    <warSourceDirectory>${basedir}/spring-mvc-study/src/main/webapp</warSourceDirectory>
+                </configuration>
             </plugin>
         </plugins>
+
     </build>
 
 </project>
