@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping(value = "/rest/{rest_id}")
-public class RestController implements LastModified {
+public class URITemplateRestController implements LastModified {
 
     /**
      * 类级的URL模板变量 能和方法级的模板变量 一起使用
