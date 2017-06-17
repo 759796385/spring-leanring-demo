@@ -1,10 +1,7 @@
 package com.newtonk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +11,7 @@ import javax.servlet.http.HttpSession;
  * 创建人：tq
  * 创建日期：2017/6/16 0016
  */
-@org.springframework.web.bind.annotation.RestController
+@RestController
 @RequestMapping("/session")
 //@SessionAttributes("pet")
 public class SessionController {

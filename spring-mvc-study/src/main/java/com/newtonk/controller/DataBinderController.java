@@ -1,10 +1,10 @@
 package com.newtonk.controller;
 
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import java.util.Date;
  * 创建人：tq
  * 创建日期：2017/6/16 0016
  */
-@Controller
+@RestController
 @RequestMapping(value = "/data")
 public class DataBinderController {
 

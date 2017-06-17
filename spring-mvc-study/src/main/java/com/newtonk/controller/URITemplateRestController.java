@@ -3,6 +3,7 @@ package com.newtonk.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.mvc.LastModified;
 
@@ -16,7 +17,7 @@ import java.util.Date;
  * 创建人：tq
  * 创建日期：2017/6/15 0015
  */
-@org.springframework.web.bind.annotation.RestController
+@RestController
 @RequestMapping(value = "/rest/{rest_id}")
 public class URITemplateRestController implements LastModified {
 
