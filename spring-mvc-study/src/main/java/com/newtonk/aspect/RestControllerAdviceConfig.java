@@ -22,7 +22,7 @@ import java.util.Map;
 //@ControllerAdvice(assignableTypes = {ControllerInterface.class, AbstractController.class})
 public class RestControllerAdviceConfig {
 
-    @ModelAttribute
+//    @ModelAttribute
     public Map newUser() {
         System.out.println("============应用到RestController方法，在其执行之前把返回值放入Model");
         Map<String,Object> map = new HashMap<>();
