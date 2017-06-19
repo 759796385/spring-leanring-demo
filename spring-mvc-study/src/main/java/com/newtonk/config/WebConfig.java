@@ -1,14 +1,12 @@
 package com.newtonk.config;
 
+import com.newtonk.interceptor.AsyncHandlerInterceptorDemo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
@@ -22,6 +20,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("com.newtonk")
 //@ImportResource(value = {"classpath:spring-mvc.xml"})
 public class WebConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AsyncHandlerInterceptorDemo());
+    }
 
     @Override
     public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
@@ -54,4 +57,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
 
+    @Bean
+    public DemoBean registerBean(){
+        DemoBean demoBean = new DemoBean();
+        demoBean.setAge(23);
+        demoBean.setName("newtonk");
+        return demoBean;
+    }
 }
