@@ -4,10 +4,13 @@ import com.newtonk.interceptor.AsyncHandlerInterceptorDemo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.CacheControl;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 类名称：
@@ -64,4 +67,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         demoBean.setName("newtonk");
         return demoBean;
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("/static/")
+                .setCacheControl(CacheControl.maxAge(1, TimeUnit.HOURS).cachePublic());
+//                .setCacheControl(CacheControl.noCache());
+        /* 等我学完cache-control先。*/
+
+    }
+
 }
