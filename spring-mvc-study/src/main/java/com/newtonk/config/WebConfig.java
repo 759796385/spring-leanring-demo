@@ -70,12 +70,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        CacheControl ccCacheOneHour = CacheControl.maxAge(1, TimeUnit.HOURS);
+//        CacheControl ccNoStore = CacheControl.noStore();
+        CacheControl ccCustom = CacheControl.maxAge(10, TimeUnit.DAYS)
+                .noTransform().cachePublic();
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("/static/")
-                .setCacheControl(CacheControl.maxAge(1, TimeUnit.HOURS).cachePublic());
-//                .setCacheControl(CacheControl.noCache());
-        /* 等我学完cache-control先。*/
-
+                .setCacheControl(ccCustom);
+        /* 使用Cache-Control 缓存 */
     }
 
 }
