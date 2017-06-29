@@ -1,9 +1,12 @@
 package com.newtonk.DO;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Data;
+
 /**
  * Created by newtonk on 2017/6/17.
  */
+@Data
 public class User {
 
     public interface WithoutPasswordView {};
