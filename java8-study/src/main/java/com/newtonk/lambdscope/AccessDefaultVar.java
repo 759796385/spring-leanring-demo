@@ -1,4 +1,4 @@
-package com.newtonk.j8.lambdscope;
+package com.newtonk.lambdscope;
 
 /**
  * 类名称：

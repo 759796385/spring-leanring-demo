@@ -1,10 +1,10 @@
-package com.newtonk.j8;
+package com.newtonk;
 
-import com.newtonk.j8.interfaces.FunctionInterfaceTest;
-import com.newtonk.j8.interfaces.InterfaceTest;
-import com.newtonk.j8.interfaces.methodAndConstructorRef.Person;
-import com.newtonk.j8.interfaces.methodAndConstructorRef.PersonFactory;
-import com.newtonk.j8.interfaces.methodAndConstructorRef.Something;
+import com.newtonk.interfaces.FunctionInterfaceTest;
+import com.newtonk.interfaces.InterfaceTest;
+import com.newtonk.interfaces.methodAndConstructorRef.Person;
+import com.newtonk.interfaces.methodAndConstructorRef.PersonFactory;
+import com.newtonk.interfaces.methodAndConstructorRef.Something;
 
 /**
  * 类名称：

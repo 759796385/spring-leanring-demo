@@ -1,4 +1,4 @@
-package com.newtonk.j8.stream;
+package com.newtonk.stream;
 
 import com.google.common.collect.Lists;
 
