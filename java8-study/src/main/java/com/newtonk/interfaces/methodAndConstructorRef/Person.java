@@ -1,4 +1,4 @@
-package com.newtonk.j8.interfaces.methodAndConstructorRef;
+package com.newtonk.interfaces.methodAndConstructorRef;
 
 /**
  * 类名称：

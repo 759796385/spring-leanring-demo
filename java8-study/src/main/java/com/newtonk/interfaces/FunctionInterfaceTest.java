@@ -1,4 +1,4 @@
-package com.newtonk.j8.interfaces;
+package com.newtonk.interfaces;
 
 /**
  * 类名称：

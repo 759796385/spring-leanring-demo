@@ -1,6 +1,6 @@
-package com.newtonk.j8.lambdscope;
+package com.newtonk.lambdscope;
 
-import com.newtonk.j8.interfaces.FunctionInterfaceTest;
+import com.newtonk.interfaces.FunctionInterfaceTest;
 
 /**
  * 类名称：

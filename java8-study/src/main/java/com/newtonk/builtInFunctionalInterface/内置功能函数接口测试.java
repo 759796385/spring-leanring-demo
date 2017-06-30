@@ -1,4 +1,4 @@
-package com.newtonk.j8.builtInFunctionalInterface;
+package com.newtonk.builtInFunctionalInterface;
 
 import java.util.Objects;
 import java.util.function.Function;
