@@ -1,0 +1,6 @@
+#spring mvc 启动过程
+
+`SpringServletContainerInitializer`是容器启动的入口。
+所有实现了`WebApplicationInitializer`的类都将被SpringServletContainerInitializer.onStartup()的调用startUp方法
+
+spring 提供了很多模块的抽象类用来封装调用，直接继承扩展即可

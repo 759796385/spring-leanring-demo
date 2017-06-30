@@ -9,7 +9,7 @@ spring:
 
 debug: true
 logging:
-  path: \github\spring-leanring-demo\spring-boot-study\log
+  path: \github\spring-core\spring-boot-study\log
   level:
       root: INFO
 #trace: true
