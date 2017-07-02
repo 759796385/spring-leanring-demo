@@ -12,3 +12,35 @@ eureka:
 spring:
   application:
     name: eureka-center
+#添加eureka client身份验证
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: 123
+
+---
+spring:
+  profiles: peer1
+server:
+  port: 8081
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    serviceUrl:
+      defaultZone: http://peer2:8082/eureka
+
+---
+# 根据不同的profile来达到Eureka service复制
+spring:
+  profiles: peer2
+server:
+  port: 8082
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8081/eureka

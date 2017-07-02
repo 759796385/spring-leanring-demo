@@ -1,9 +1,11 @@
 package com.newtonk;
 
+import feign.auth.BasicAuthRequestInterceptor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
 
 /**
  * 类名称：生产者
@@ -21,5 +23,14 @@ public class ProductServiceApplication {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(ProductServiceApplication.class).web(true).run(args);
+    }
+
+
+    /*
+    用于http basic认证
+     */
+    @Bean
+    public BasicAuthRequestInterceptor basicAuthRequestInterceptor(){
+        return new BasicAuthRequestInterceptor("user","123");
     }
 }

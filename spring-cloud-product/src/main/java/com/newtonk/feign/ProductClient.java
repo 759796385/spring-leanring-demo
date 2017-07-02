@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * 接口名称：spring-cloud-consumer下ProductController接口的定义
- * 接口描述：
+ * 接口描述：FeignClient中的值是一个任意的客户端名称。用于创建Ribbon负载均衡器。
  * 创建人：tq
  * 创建日期：2017/6/30 0030
  */
