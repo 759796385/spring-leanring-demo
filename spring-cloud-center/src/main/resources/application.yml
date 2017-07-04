@@ -15,7 +15,7 @@ spring:
 #添加eureka client身份验证
 security:
   basic:
-    enabled: true
+    enabled: false
   user:
     name: user
     password: 123
