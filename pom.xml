@@ -16,6 +16,7 @@
         <module>spring-cloud-consumer</module>
         <module>spring-cloud-product</module>
         <module>spring-cloud-config-server</module>
+        <module>spring-cloud-config-client</module>
     </modules>
     <name>spring-core Maven Webapp</name>
   <url>http://maven.apache.org</url>
