@@ -1,5 +1,6 @@
 package com.newtonk.controller;
 
+import com.newtonk.exception.MyException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,5 +18,10 @@ public class MyController {
     @GetMapping(value = "")
     public Object first(){
         return "";
+    }
+
+    @GetMapping(value = "/exception")
+    public Object throwExcep(){
+        throw new MyException("sa");
     }
 }
