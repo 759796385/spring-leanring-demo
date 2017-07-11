@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MyController {
 
     @GetMapping(value = "")
-    public Object first(){
+    public Object first(String name,String age){
         return "";
     }
 

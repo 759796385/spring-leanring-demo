@@ -15,10 +15,10 @@ public class MyAspect {
     @Pointcut("execution(* com.newtonk.controller.MyController.*(..))")
     public void getController(){}
 
-    /*增强处理*/
-    @Before("getController()")
-    public void beforeAdvice(){
-        System.out.println("执行MyController类的first() 方法前增强");
+    /*增强处理,使用args来访问切点的同名参数 ,限制匹配至少一个参数的方法，注意参数位置和名字一定要对的上才能获取到*/
+    @Before("getController() && args(name,..)")
+    public void beforeAdvice(String name){
+        System.out.println("执行MyController类的first() 方法前增强， 方法的参数name："+ name);
     }
 
     /* returning的返回值必须和形参一样，用于获取返回值 */
