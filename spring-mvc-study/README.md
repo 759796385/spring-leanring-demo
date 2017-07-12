@@ -4,7 +4,7 @@
 
 定义：Spring Web MVC 是一种基于 Java 的实现了 Web MVC 设计模式的请求驱动类型的轻量级 Web 框架，即使用了 MVC 架 构模式的思想，将 web 层进行职责解耦，基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开 发，Spring Web MVC 也是要简化我们日常 Web 开发的。  
 
-![Alt text](./1463450153179.png)
+![image](https://github.com/759796385/spring-leanring-demo/raw/master/spring-mvc-study/img/1463450153179.png)
 
 工作步骤：
 1. 发送用户请求给前端控制器(ServletDispatcher),前端控制器根据URL确定哪个页面控制器进行处理(即RequestMapping)
@@ -12,7 +12,7 @@
 3. 前端控制器收回控制权，根据模型和视图进行渲染视图，然后返回给用户
 
 ## 从代码架构上来讲
-![Alt text](./1469535925133.png)
+![image](https://github.com/759796385/spring-leanring-demo/raw/master/spring-mvc-study/img/1469535925133.png)
 1.  首先用户发送请求——>`DispatcherServlet`，前端控制器收到请求后自己不进行处理，而是委托给其他的解析器进行处理，DispatcherServlet作为统一访问点，进行全局的流程控制.
 2.   `DispatcherServlet`——>`HandlerMapping`:`HandlerMapping`把请求映射成`HandlerExecutionChain`,从名字上可看出映射成一个调用链。这个调用链包括俩：`HandlerInterceptor`，很明显这是拦截器。`Handler`就是咱们的处理器了。别急这个处理器和咱们的action还是有点区别的。
 3.  `DispatcherServlet`——>`HandlerAdapter`：HandlerAdapter 将会把处理器包装为适配器，从而支持多种类型的处理器， 即适配器设计模式的应用，从而很容易支持很多类型的处理器,这就对应我们的controller类. 
@@ -376,7 +376,7 @@ Spring的web MVC框架和其他许多web MVC框架一样，由请求驱动，围
 
 DispatcherServlet是“前端控制器”设计模式的表达（这是Spring Web MVC与许多其他领先的Web框架共享的模式）
 
-![Alt text](./1497108309932.png)
+![image](https://github.com/759796385/spring-leanring-demo/raw/master/spring-mvc-study/img/1497108309932.png)
 
 
 DispatcherServlet 实际上就是一个servlet(继承了HttpServlet的子类)，声明在web应用中。对于你的请求映射由DispatcherServlet 去处理，通过url映射。
