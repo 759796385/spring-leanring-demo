@@ -274,7 +274,7 @@ public final void init() throws ServletException {
 	至此 ，整个Dispatcher容器启动成功。Spring mvc完成啦
 ```
 看看Dispatcher容器是如何初试化的
-```java
+```
 protected WebApplicationContext initWebApplicationContext() {
      //获取根容器，Root WebApplicationContext。 实际上就是ServletContext
 		WebApplicationContext rootContext =
@@ -358,10 +358,10 @@ springmvc很多配置直接继承WebMvcConfigurerAdapter，进行配置。
 >别忘了 java confi是要继承`AbstractAnnotationConfigDispatcherServletInitializer`类的，得实现这个方法。
 >```
 >protected Class<?>[] getServletConfigClasses() {
-        //web config目录配置
-        return new Class[]{WebConfig.class};
-    }
-
+>        //web config目录配置
+>        return new Class[]{WebConfig.class};
+>    }
+>
 >```
 
 **所有的Dispatcher共享RootApplication上下文.因此对于有多个Dispatcher的项目，配置公共的bean得在`getRootConfigClasses()`的类上。这很重要**
@@ -434,6 +434,7 @@ public class GolfingWebAppInitializer extends AbstractAnnotationConfigDispatcher
 ## WebApplicationContext中特殊的bean类型
 
 spring的`DispatcherServlet `使用特殊的bean来处理请求和视图，这些bean都是spring mvc 的一部分，你能够选择去配置他们来使用。
+
 | bean类型     |    说明 |
 | :-------- |:-------| 
 | HandlerMapping | 根据某些标准将传入的请求映射到处理程序和一列预处理和后处理器(处理程序拦截器)。根据不同的HandlerMapping实现的不同细节。最流行的实现是带注释的控制器，但是其它的实现也存在。 | 
