@@ -1,1 +1,3 @@
-#spring_core_study
+关于spring全家桶系列的官方文档相关翻译以及demo.
+
+不定期更新...
