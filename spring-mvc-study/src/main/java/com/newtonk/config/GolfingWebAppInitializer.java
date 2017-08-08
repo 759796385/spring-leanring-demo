@@ -51,6 +51,12 @@ public class GolfingWebAppInitializer extends AbstractAnnotationConfigDispatcher
         return  EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ASYNC);
     }
 
+    /**
+     * AbstractDispatcherServletInitializer  registerServletFilter 添加过滤器源码实现
+     * @param servletContext
+     * @param filterName
+     * @param filter
+     */
     protected void addFilter(ServletContext servletContext, String filterName, Filter filter) {
         FilterRegistration.Dynamic filterRegistration = servletContext.addFilter(filterName, filter);
         filterRegistration.setAsyncSupported(isAsyncSupported());
