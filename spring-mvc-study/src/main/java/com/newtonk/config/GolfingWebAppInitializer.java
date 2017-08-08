@@ -1,6 +1,11 @@
 package com.newtonk.config;
 
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.*;
+import java.util.EnumSet;
 
 /**
  * 类名称：
@@ -24,5 +29,31 @@ public class GolfingWebAppInitializer extends AbstractAnnotationConfigDispatcher
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
+        initFilters(servletContext);
+    }
+    private void initFilters(ServletContext servletContext) {
+        addFilter(servletContext, "myFilter", new DelegatingFilterProxy("myFilter"));
+        initCharacterEncodingFilter(servletContext);
+    }
+    protected void initCharacterEncodingFilter(ServletContext servletContext) {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        //characterEncodingFilter.setForceEncoding(true);
+        characterEncodingFilter.setEncoding("UTF-8");
+        addFilter(servletContext, "characterEncodingFilter", characterEncodingFilter);
+    }
+
+    protected EnumSet<DispatcherType> getDispatcherTypes() {
+        return  EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ASYNC);
+    }
+
+    protected void addFilter(ServletContext servletContext, String filterName, Filter filter) {
+        FilterRegistration.Dynamic filterRegistration = servletContext.addFilter(filterName, filter);
+        filterRegistration.setAsyncSupported(isAsyncSupported());
+        filterRegistration.addMappingForUrlPatterns(getDispatcherTypes(), false, "/*");
     }
 }

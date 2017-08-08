@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class StreamTest {
     public static void main(String[] args) {
         StreamTest a = new StreamTest();
-        a.reduceTest();
+        a.hashmapTest();
 
     }
     //Stream主要分中间操作和结果操作
@@ -174,8 +174,9 @@ public class StreamTest {
         map.computeIfPresent(4,(k,v) -> null);
         System.out.println(map.containsKey(4)); //false
 
-        map.computeIfAbsent(24,num -> "val"+ num);
-        map.containsKey(24); //true
+        map.computeIfAbsent(24,num -> "val"+ num); //var24
+        System.out.println(map.get(24));
+        System.out.println(map.containsKey(24)); //true
 
         map.computeIfAbsent(4, num -> "bam");
         System.out.println(map.get(4)); //bam
@@ -183,17 +184,36 @@ public class StreamTest {
 
         //map能够移除匹配的entry
         map.remove(4,"sasa");   //移除不成功
-        System.out.println(map.get(4));
+        System.out.println(map.get(4));//bam
         map.remove(4,"bam");
         System.out.println(map.get(4));//null
 
-        System.out.println(map.get(42));
+        System.out.println(map.get(42));//null
         System.out.println(map.getOrDefault(42,"没找到"));
 
-        map.merge(9, "val9", (value, newValue) -> value.concat(newValue));
+        /*
+        * V oldValue = get(key);
+        * V newValue = (oldValue == null) ? value :
+                   remappingFunction.apply(oldValue, value);
+        * if(newValue == null) {
+            remove(key);
+        } else {
+            put(key, newValue);
+        }
+         return newValue;
+        */
+        // 如果有value就把原来的值 +val9，否则就是val9
+        map.merge(9, "val9", String::concat);
         System.out.println(map.get(9));             // val9val9
 
         map.merge(9, "concat", (value, newValue) -> value.concat(newValue));
         map.get(9);     //      val9concat
+
+        map.merge(9981,"12",(oldValue,newValue) -> oldValue+newValue); //12
+        System.out.println(map.get(9981));
+
+        map.compute(9981,(key,oldValue) -> ""+key/Integer.valueOf(oldValue));   //9981/12 = 831
+        System.out.println(map.get(9981));
+
     }
 }

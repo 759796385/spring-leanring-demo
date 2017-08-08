@@ -60,13 +60,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
 
-    @Bean
-    public DemoBean registerBean(){
-        DemoBean demoBean = new DemoBean();
-        demoBean.setAge(23);
-        demoBean.setName("newtonk");
-        return demoBean;
-    }
+
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
