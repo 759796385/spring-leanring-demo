@@ -3,9 +3,17 @@ server:
 spring:
   main:
     banner-mode: "console"
+  redis:
+    host:
+    database: 0
+    password:
 #trace: true
 
 
 
+security:
+  oauth2:
+    resource:
+      filter-order: 3
 
 

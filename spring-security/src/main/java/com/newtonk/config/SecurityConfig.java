@@ -1,9 +1,14 @@
 package com.newtonk.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
  * 类名称：
@@ -36,8 +41,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/about/**").permitAll() //开放鉴权
                 .antMatchers("/v1/admin").hasRole("ADMIN") //限制角色为ROLE_ADMIN的用户访问，由于使用hasRole方法，无需指定ROLE_前缀
                 .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')") //使用access可以自定义权限表达式
+                .antMatchers("/oauth/*").permitAll()
                 .anyRequest().authenticated()//除此之外的请求都需要鉴权
         .and().formLogin().and().httpBasic(); //开放表单登录 ，默认url：/login
+    }
+
+
+    /**
+     * 可通过继承WebSecurityConfigurerAdapter多次，配置多个Http安全实例
+     * order用于表示加载顺序，不标明默认最后
+     */
+    @Configuration
+    @Order(1) //加order注解用于指定这个先注册
+    public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .antMatcher("/api/**")
+                    .authorizeRequests()
+                    .anyRequest().hasRole("ADMIN")
+                    .and()
+                    .httpBasic(); //这个配置只用于/API开头的URL
+        }
     }
 
     //注销配置
@@ -54,19 +78,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		...
 //    }
 
-//    /**
-//     * 用户注册用户信息的类，根据实际用户访问方式，重写此方法
-//     */
-//    @Bean
-//    public AuthenticationProvider userDetailsService(){
-//        //指定两个身份的用户,放在内存中
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(User.withUsername("user").password("password").roles("USER").build());
-//        manager.createUser(User.withUsername("admin").password("password").roles("USER","ADMIN").build());
-//        return manager;
+/**
+ * 用户注册用户信息的类，根据实际用户访问方式，重写此方法
+ */
+    @Bean
+    @Override
+    protected UserDetailsService userDetailsService(){
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("user_1").password("123456").authorities("USER").build());
+        manager.createUser(User.withUsername("user_2").password("123456").authorities("USER").build());
+        return manager;
+    }
+
+
+
+//    @Configuration
+//    public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http
+//                    .authorizeRequests()
+//                    .anyRequest().authenticated()
+//                    .and()
+//                    .formLogin();
+//        }
 //    }
-
-
-
 
 }

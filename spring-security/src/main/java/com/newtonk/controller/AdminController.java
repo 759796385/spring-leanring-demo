@@ -1,4 +1,4 @@
-package com.newtonk.config.controller;
+package com.newtonk.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
  * 创建日期：2017/8/16 0016
  */
 @RestController
-@RequestMapping(value = "/about")
-public class AccessController {
+@RequestMapping(value = "/v1")
+public class AdminController {
+
+    @GetMapping(value = "/admin")
+    public String needLogin(){
+        return "need login";
+    }
 
     @GetMapping(value = "")
-    public String hello(){
-        return "hello world!";
+    public String needAuthorize(){
+        return "1`11";
     }
 }

@@ -29,7 +29,14 @@ public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception 
 ```
 
 ##LDAP鉴权
-需配合Apache DS LDAP实例一起使用
+需配合Apache DS LDAP实例一起使用,LDAP可以近似看成一个用于鉴权的“数据库”
 
 ##AuthenticationProvider
-你可以定义一个鉴权消费者为`AuthenticationProvider` Bean，专门用于处理鉴权。`SpringAuthenticationProvider`就是AuthenticationProvider的一个实现. 
+你可以定义一个鉴权消费者为`AuthenticationProvider` Bean，专门用于处理鉴权。自定义AuthenticationProvider的接口实现. 
+> 只使用在`AuthenticationManagerBuilder `没有注入的情况下
+
+###UserDetailsService
+你可以定义一个鉴权消费者为`UserDetailsService` Bean.用于处理鉴权.自定义UserDetailsService接口实现.
+
+#多重Http安全
+我们可以配置多个Http安全实例,关键点就是继承`WebSecurityConfigurationAdapter `多次。
