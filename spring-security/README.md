@@ -40,3 +40,39 @@ public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception 
 
 #多重Http安全
 我们可以配置多个Http安全实例,关键点就是继承`WebSecurityConfigurationAdapter `多次。
+
+
+
+#使用方法
+
+oauth2根据使用场景不同，分成了4种模式
+
+- 授权码模式（authorization code）
+- 简化模式（implicit）
+- 密码模式（resource owner password credentials）
+- 客户端模式（client credentials）
+
+获取token 
+Password模式 Mactoken：`http://localhost/oauth/token?username=user_1&password=123456&grant_type=password&scope=select&client_id=client_2&client_secret=123456`
+返回
+```
+{
+"access_token": "05cb45a6-5dc0-4e07-ac79-ea4d53e42e06",
+"token_type": "bearer",
+"refresh_token": "41926fae-f428-4de9-bdd4-667854b34e4b",
+"expires_in": 43199,
+"scope": "select"
+}
+```
+client模式  bearerToken：`http://localhost/oauth/token?grant_type=client_credentials&scope=select&client_id=client_1&client_secret=123456`
+```
+{
+"access_token": "bf4a6b1d-624c-4702-bd88-50d818d54181",
+"token_type": "bearer",
+"expires_in": 43199,
+"scope": "select"
+}
+```
+
+获取token后可携带accessToken访问受保护的API
+`http://localhost/order/1?access_token=bf4a6b1d-624c-4702-bd88-50d818d54181`

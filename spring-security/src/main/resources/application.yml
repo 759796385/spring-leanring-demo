@@ -5,7 +5,7 @@ spring:
     banner-mode: "console"
   redis:
     host:
-    database: 0
+    database: 15
     password:
 #trace: true
 
