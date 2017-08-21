@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+
 /**
  * 类名称：
  * 类描述：
@@ -43,6 +45,10 @@ public class EndPoints {
     private void getUserName(){
         //SecurityContext 是线程安全的（默认情况，可根据需求修改）。Spring Security中的大多数身份验证机制都将UserDetails的一个实例作为主体返回
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection authorities  = authentication.getAuthorities();
+        for (Object authority : authorities) {
+            System.out.println(authority);  //获取当前用户角色  String类型的User
+        }
         //获取用户信息
         String userName;
         Object principal = authentication.getPrincipal();
