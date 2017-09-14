@@ -3,6 +3,7 @@ package com.newtonk.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -80,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 /**
  * 用户注册用户信息的类，根据实际用户访问方式，重写此方法
+ * 实质：用来填充授权的安全对象，将之置入SecurityContextConfigurer
  */
     @Bean
     @Override
@@ -90,7 +92,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
+    /**
+     * 重写此类也可自定义认证方式
+     */
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("user_1").password("123456").authorities("USER")
+//                .and()
+//                .withUser("user_2").password("123456").authorities("USER");
+//    }
 
+
+
+
+    /**
+     * 用来暴露父类中的 AuthenticationManager
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        AuthenticationManager authenticationManager = super.authenticationManagerBean();
+        return authenticationManager;
+    }
 
 //    @Configuration
 //    public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
