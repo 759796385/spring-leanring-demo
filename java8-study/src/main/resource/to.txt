@@ -1,0 +1,2 @@
+a band of frequencies used in radio and television transmission, especially as used by a particular station.
+Under this concept, multiple antennas simultaneously transmit different flows of data over one and the same radio channel and frequency band.

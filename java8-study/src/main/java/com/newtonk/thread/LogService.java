@@ -1,12 +1,12 @@
 package com.newtonk.thread;
 
-import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class LogService {
-	private final BlockingQueue<String> queue = null;
-	private final LoggerThread loggerThread = null;
-	private final PrintWriter writer = null;
+	private final BlockingQueue<String> queue = new LinkedBlockingDeque<>();
+	private final LoggerThread loggerThread = new LoggerThread();
 
 	private boolean isShutdown;
 	private int reservcations;
@@ -22,6 +22,23 @@ public class LogService {
 		loggerThread.interrupt();
 	}
 
+	public static void main(String[] args) {
+        LogService logService = new LogService();
+        logService.start();
+        Scanner sc=new Scanner(System.in);
+        while (sc.hasNextLine()){
+            String a = sc.nextLine();
+            if(a.equals("end")){
+                break;
+            }
+            try {
+                logService.log(a);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        logService.stop();
+	}
 	/**
 	 * 生产者
 	 * 
@@ -34,6 +51,7 @@ public class LogService {
 				throw new IllegalStateException();
 			}
 			reservcations++;
+            queue.put(msg);
 		}
 	}
 
@@ -43,26 +61,20 @@ public class LogService {
 	 */
 	private class LoggerThread extends Thread {
 		public void run() {
-			try {
-				while (true) {
-					try {
-						synchronized (LogService.this) {
-							if (isShutdown && reservcations == 0) {
-								break;
-							}
-							String msg = queue.take();
-							synchronized (LogService.this) {
-								reservcations--;
-							}
-							writer.println(msg);
-						}
-					} catch (InterruptedException e) {
-						// ����
-					}
-				}
-			} finally {
-				writer.close();
-			}
+            while (true) {
+                try {
+                    if (isShutdown && reservcations == 0) {
+                        break;
+                    }
+                    String msg = queue.take();
+                    synchronized (LogService.this) {
+                        reservcations--;
+                    }
+                    System.out.println(msg);
+                } catch (InterruptedException e) {
+                    // 处理中断异常
+                }
+            }
 		}
 	}
 }
