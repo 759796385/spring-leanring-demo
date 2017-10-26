@@ -1,9 +1,13 @@
 package com.newtonk.nio.selector;
 
-import java.nio.channels.Channel;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.SocketChannel;
+import com.newtonk.nio.channel.ChannelDemo;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * 类名称：
@@ -17,8 +21,102 @@ import java.nio.channels.SocketChannel;
  */
 public class SelectorDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    client();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                server();
+            }
+        }).start();
+    }
+
+    public static void server() {
+        try {
+                    /* 建立选择器 */
+            Selector selector = Selector.open();
+                    /* 服务器坚挺接口 */
+            ServerSocketChannel listenerChannel=ServerSocketChannel.open();
+            listenerChannel.socket().bind(new InetSocketAddress(8888));
+
+            listenerChannel.configureBlocking(false);
+            listenerChannel.register(selector,SelectionKey.OP_ACCEPT );
+            while(true) {
+                if (selector.select(1000) == 0) {
+                    System.out.print("等待中....");
+                    continue;
+                }
+                Iterator<SelectionKey> keyIter=selector.selectedKeys().iterator();
+                while(keyIter.hasNext()) {
+                    SelectionKey key = keyIter.next();
+
+                    if (key.isAcceptable()) {
+                        SocketChannel channel = ((ServerSocketChannel) key.channel()).accept();
+                        // 有客户端连接请求时 注册到选择器
+                        channel.configureBlocking(false);
+                        channel.register(key.selector(), SelectionKey.OP_READ|SelectionKey.OP_WRITE, ByteBuffer.allocate(9));
+                    } else if (key.isConnectable()) {
+                        // 客户端连接上
+                    } else if (key.isReadable()) {
+                        SocketChannel  channel = (SocketChannel) key.channel();
+                        // 从客户端读取数据
+                        ByteBuffer byteBuffer = (ByteBuffer) key.attachment();
+                        ChannelDemo.readBuffer(channel,byteBuffer);
+                    } else if (key.isWritable()) {
+                        // 客户端可写
+                    }
+                    keyIter.remove();
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void client() throws Exception{
+        /* 创建选择器 */
+        Selector selector = Selector.open();
+
+        // 打开监听信道
+        SocketChannel channel=SocketChannel.open(new InetSocketAddress("localhost", 8888));
+        channel.configureBlocking(false);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(9);
+        SelectionKey key = channel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE,byteBuffer);
+        while(true) {
+            int readyChannels = selector.select();
+            if(readyChannels == 0) continue;
+            Set selectedKeys = selector.selectedKeys();
+            Iterator keyIterator = selectedKeys.iterator();
+            while(keyIterator.hasNext()) {
+                SelectionKey selectionKey = (SelectionKey) keyIterator.next();
+                if(selectionKey.isWritable()){
+                    ByteBuffer buffer = (ByteBuffer) selectionKey.attachment();
+
+//                    /* 缓冲填充数据 */
+                    byte[] as = new byte[]{1,2,3,4,5,6,7,8};
+                    buffer.put(as);
+                    channel.write(buffer);
+
+                    Thread.sleep(1000);
+                    /* 缓冲填充数据 */
+                    byte[] bs = new byte[]{9,8,7,6,5,4,3,2,1};
+                    buffer.clear();
+                    buffer.put(as);
+                    channel.write(buffer);
+                }
+            }
+        }
     }
 
     public static void selectTest() throws Exception {
@@ -54,7 +152,25 @@ public class SelectorDemo {
         key.attach(new Object());
         Object attachedObj = key.attachment();
         //当然register也支持附加对象的构造参数
+
     }
+
+    /**
+     * selector注册通道后
+     */
+    public void selectorDemo(Selector selector){
+        //int select() 阻塞到至少有一个通道在你注册的事件上就绪了。
+        // select()方法返回的int值表示有多少通道已经就绪。亦即，自上次调用select()方法后有多少通道变成就绪状态。
+        //int select(long timeout) 和select()一样，除了最长会阻塞timeout毫秒(参数)。
+        //int selectNow() 不会阻塞，不管什么通道就绪都立刻返回.没有通道变成可选择的，则此方法直接返回零。
+
+        Set selectedKeys = selector.selectedKeys();//获取访问就绪的通道
+        Iterator keyIterator = selectedKeys.iterator();
+
+    }
+
+
+
 
     static SocketChannel getChanel() throws Exception{
         return null;

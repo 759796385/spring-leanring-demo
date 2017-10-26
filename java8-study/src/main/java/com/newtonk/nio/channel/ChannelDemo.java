@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
 
 /**
  * 类名称：
@@ -19,15 +20,26 @@ import java.nio.channels.FileChannel;
  */
 public class ChannelDemo {
     public static void main(String[] args) throws IOException {
+//        readDemo()
         transferDemo();
     }
 
-    public static void readDemo() throws IOException{
-        RandomAccessFile aFile = new RandomAccessFile("java8-study/src/main/resource/demo.txt", "rw");
-        /* 获取文件通道 */
-        FileChannel inChannel = aFile.getChannel();
+    public  static void readDemo() throws Exception{
+        FileChannel fileChannel = getChannel();
         /* 申请48长度的缓冲 */
         ByteBuffer buf = ByteBuffer.allocate(48);
+        readBuffer(fileChannel,buf);
+    }
+
+    public static FileChannel getChannel()  throws IOException {
+        RandomAccessFile aFile = new RandomAccessFile("java8-study/src/main/resource/client.txt", "rw");
+        /* 获取文件通道 */
+        FileChannel inChannel = aFile.getChannel();
+        return inChannel;
+    }
+    public static void readBuffer(ReadableByteChannel inChannel,ByteBuffer buf) throws IOException{
+
+        buf.clear();
         /* 从通道中读入到缓冲 */
         int bytesRead = inChannel.read(buf);
         while (bytesRead != -1) {
@@ -44,12 +56,12 @@ public class ChannelDemo {
             /* 从通道中获取字符到缓冲 */
             bytesRead = inChannel.read(buf);
         }
-        aFile.close();
+//        aFile.close(); 文件流关闭
     }
 
 
     public static void transferDemo() throws IOException{
-        RandomAccessFile fromFile = new RandomAccessFile("java8-study/src/main/resource/demo.txt", "rw");
+        RandomAccessFile fromFile = new RandomAccessFile("java8-study/src/main/resource/client.txt", "rw");
         RandomAccessFile toFile = new RandomAccessFile("java8-study/src/main/resource/to.txt", "rw");
 
         FileChannel      fromChannel = fromFile.getChannel();

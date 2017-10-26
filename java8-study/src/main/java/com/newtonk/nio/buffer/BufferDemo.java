@@ -112,7 +112,7 @@ public class BufferDemo {
 
 
     FileChannel getChanel() throws Exception{
-        RandomAccessFile aFile = new RandomAccessFile("java8-study/src/main/resource/demo.txt", "rw");
+        RandomAccessFile aFile = new RandomAccessFile("java8-study/src/main/resource/client.txt", "rw");
         /* 获取文件通道 */
         return aFile.getChannel();
     }
