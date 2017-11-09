@@ -6,6 +6,11 @@ spring:
     banner-mode: "console"
   profiles:
     active: dev
+  redis:
+    host: 123.57.219.113
+    database: 0
+    password:
+
 debug: true
 logging:
   path: \github\spring-core\spring-boot-study\log
@@ -13,11 +18,7 @@ logging:
       root: INFO
 #trace: true
 
-
-
-
-
-
+redis.
 ---
 spring:
     profiles: dev
