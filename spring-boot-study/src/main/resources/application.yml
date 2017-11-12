@@ -18,7 +18,6 @@ logging:
       root: INFO
 #trace: true
 
-redis.
 ---
 spring:
     profiles: dev
