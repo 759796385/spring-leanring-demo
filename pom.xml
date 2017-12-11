@@ -14,6 +14,7 @@
         <module>spring-mvc-study</module>
         <module>spring-cloud-center</module>
         <module>spring-cloud-consumer</module>
+        <module>spring-cloud-hystrix</module>
         <module>spring-cloud-product</module>
         <module>spring-cloud-config-server</module>
         <module>spring-cloud-config-client</module>

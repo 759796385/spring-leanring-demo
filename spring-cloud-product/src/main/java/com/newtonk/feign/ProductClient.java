@@ -11,7 +11,7 @@ import java.util.Date;
  * 创建人：tq
  * 创建日期：2017/6/30 0030
  */
-@FeignClient("eureka-consumer")
+@FeignClient(value = "eureka-consumer",fallback = FeignClientFallback.class)
 public interface ProductClient {
 
     /**
