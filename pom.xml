@@ -19,6 +19,7 @@
         <module>spring-cloud-config-server</module>
         <module>spring-cloud-config-client</module>
         <module>spring-security</module>
+        <module>spring-cloud-zuul</module>
     </modules>
     <name>spring-core Maven Webapp</name>
   <url>http://maven.apache.org</url>

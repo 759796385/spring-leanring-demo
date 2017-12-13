@@ -1,0 +1,12 @@
+server:
+  port: 2334
+spring:
+  application:
+    name: spring-gateway-zuul
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+management:
+  security:
+    enabled: false
