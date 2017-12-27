@@ -3,4 +3,3 @@ target/
 *.iml
 /spring-boot-study/log/
 !/spring-mvc-study/spring-mvc-study.iml
-/spring-cloud-config-server/src/main/resources/application.yml

@@ -1,0 +1,21 @@
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/
+
+spring:
+  application:
+    name: eureka-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/759796385/spring-cloud-config-server.git
+          username:
+          password:
