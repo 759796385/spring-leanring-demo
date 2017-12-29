@@ -16,13 +16,14 @@ public class Worker {
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-
+        factory.setPort(6043);
+        factory.setUsername("fepapi_dev_s9kEo2");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
 
-
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        boolean  durable = true;//消息持久化  不能修改已经声明为不持久化的queue为持久化
+        channel.queueDeclare(QUEUE_NAME, durable, false, false, null);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
         /* 公平分发。当两个消费者消费速度不一致时，但是依然会公平获取消息，导致局部负载过大。
          * 用basicQos方法来设置prefetchCount = 1，一次只取一条消息消费，直到发送ack才消费下一条消息 */

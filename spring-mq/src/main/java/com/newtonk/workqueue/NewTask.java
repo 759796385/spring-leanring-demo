@@ -23,10 +23,13 @@ public class NewTask {
      */
     public static void main(String[] args) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-
+        factory.setPort(6043);
+        factory.setUsername("fepapi_dev_s9kEo2");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         boolean  durable = true;//消息持久化  不能修改已经声明为不持久化的queue为持久化
+        //exclusive true：声明一个独有的队列 （仅限于这个连接）
+        //autoDelete  声明一个自动删除队列(服务器将在不再使用时删除它)
         channel.queueDeclare(QUEUE_NAME, durable, false, false, null);
         String message = getMessage(args);
         message="1.2.3.4.5.6.7.8.9.10";
