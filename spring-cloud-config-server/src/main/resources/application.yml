@@ -1,13 +1,13 @@
 
 server:
-  port: 8761
+  port: 8765
 
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-    serviceUrl:
-      defaultZone: http://localhost:${server.port}/eureka/
+#    serviceUrl:
+#      defaultZone: http://localhost:${server.port}/eureka/
 
 spring:
   application:
@@ -16,6 +16,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/759796385/spring-cloud-config-server.git
-          username:
+          uri: http://git.sdp.nd/127002/server-config.git
+          username: 127002
           password:
+          search-paths: '{application}'
