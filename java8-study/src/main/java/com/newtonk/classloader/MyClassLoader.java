@@ -13,22 +13,48 @@ import java.net.URLClassLoader;
  */
 public class MyClassLoader extends URLClassLoader {
 
-    private ClassLoader childClassLoader;
+    private MyClassLoader childClassLoader;
 
     public MyClassLoader(URL[] urls, ClassLoader parent) {
         super(urls, parent);
     }
 
-    public void setChildClassLoader(ClassLoader child){
+    public void setChildClassLoader(MyClassLoader child){
         this.childClassLoader = child;
+    }
+
+    protected  Class<?> loadClassInChild(String name)throws ClassNotFoundException {
+        //重入锁
+        synchronized (getClassLoadingLock(name)) {
+            Class<?> c = findLoadedClass(name);//先走缓存
+            if(c != null){
+                return c;
+            }
+            //再查字节码
+            try {
+                c = findClass(name);
+            }catch (ClassNotFoundException e){
+                if(childClassLoader!=null){
+                    return childClassLoader.loadClassInChild(name);
+                }
+                throw e;
+            }
+            return c;
+        }
     }
 
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
-        if(childClassLoader!=null){
-            return childClassLoader.loadClass(name);
+        Class clazz;
+        try {
+            clazz = super.loadClass(name);
+        }catch (ClassNotFoundException e) {
+            if (childClassLoader != null) {
+                return childClassLoader.loadClassInChild(name);
+            }
+            throw e;
         }
-        return super.loadClass(name);
+        return clazz;
     }
 
     public static void main(String[] args) {
