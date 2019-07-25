@@ -21,7 +21,8 @@
         <module>spring-security</module>
         <module>spring-cloud-zuul</module>
         <module>spring-mq</module>
-    </modules>
+		<module>ali-sentinel</module>
+	</modules>
     <name>spring-core Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
