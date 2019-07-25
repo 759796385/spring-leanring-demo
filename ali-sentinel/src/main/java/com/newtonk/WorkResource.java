@@ -25,7 +25,7 @@ public class WorkResource {
 	 * fallback：抛出异常时的处理方法，方法签名必须和保护方法一致，可多个Throwable接受对应异常，默认同个类下。
 	 * 				如果要放其它地方，配合fallbackClass使用
 	 */
-	@SentinelResource(value = "HelloWorld",blockHandler = "fastFail")
+	@SentinelResource(value = Constants.SentinelResourceKey.HELLOWORLD,blockHandler = "fastFail")
 	public void helloWorld() {
 		// 资源中的逻辑
 		System.out.println(new Date());
