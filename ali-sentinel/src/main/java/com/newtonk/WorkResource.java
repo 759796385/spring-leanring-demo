@@ -31,6 +31,16 @@ public class WorkResource {
 		System.out.println(new Date());
 	}
 
+	@SentinelResource(value = Constants.SentinelResourceKey.TIMEOUT,blockHandler = "fastFail")
+	public void timeout(){
+		try {
+			Thread.sleep(5000);
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void fastFail(BlockException ex){
 		System.out.println("快速失败");
 	}

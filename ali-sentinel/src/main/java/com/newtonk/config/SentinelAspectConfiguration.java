@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.newtonk.Constants;
@@ -25,16 +27,31 @@ public class SentinelAspectConfiguration {
 	@PostConstruct
 	public void configRule(){
 		initFlowRule();
-
+		degradeRule();
 	}
 
 	/**
 	 * 熔断降级规则
 	 * 同一个资源可以有多个降级规则
+	 * 超时时间： 平均每个请求响应时间 默认RT上限4900，超过就取4900
+	 * 	@see DegradeRuleManager#isValidRule(com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule)
+	 *
+	 * 异常比例: qps 必须大于5，比例范围[0,1]
+	 *
+	 * 异常数:异常数字超过阈值 就会失败
+	 *  具体实现
+	 *  @see com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule#passCheck(com.alibaba.csp.sentinel.context.Context, com.alibaba.csp.sentinel.node.DefaultNode, int, java.lang.Object...)
 	 */
-	void DegradeRule(){
-
-
+	void degradeRule(){
+		List<DegradeRule> rules = new ArrayList<>();
+		DegradeRule rule = new DegradeRule();
+		rule.setResource(Constants.SentinelResourceKey.TIMEOUT);
+		//熔断策略 (0: average RT, 1: exception ratio，2)  超时时间 和 异常比例 还有异常数
+		rule.setGrade(RuleConstant.DEGRADE_GRADE_RT);
+		//阈值
+		rule.setCount(1000);
+		//时间窗口 单位秒
+		rule.setTimeWindow(60);
 	}
 
 	/**

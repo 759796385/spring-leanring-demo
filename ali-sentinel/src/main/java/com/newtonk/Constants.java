@@ -9,5 +9,7 @@ package com.newtonk;
 public interface Constants {
 	interface SentinelResourceKey{
 		String HELLOWORLD = "HelloWorld";
+
+		String TIMEOUT  = "Timeout";
 	}
 }
