@@ -31,7 +31,7 @@ public class SentinelAspectConfiguration {
 	/**
 	 * 熔断降级规则
 	 * 同一个资源可以有多个降级规则
-	 * 超时时间： 平均每个请求响应时间 默认RT上限4900，超过就取4900
+	 * 超时时间： 平均每个请求响应时间 默认RT上限4900
 	 * 	@see DegradeRuleManager#isValidRule(com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule)
 	 *
 	 * 异常比例: qps 必须大于5，比例范围[0,1]，异常总数占通过量比值超过阈值接下来时间窗口就会进入降级，
