@@ -22,7 +22,9 @@
         <module>spring-cloud-zuul</module>
         <module>spring-mq</module>
 		<module>ali-sentinel</module>
-	</modules>
+		<module>ali-dubbo-provider</module>
+        <module>ali-dubbo-consumer</module>
+    </modules>
     <name>spring-core Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
