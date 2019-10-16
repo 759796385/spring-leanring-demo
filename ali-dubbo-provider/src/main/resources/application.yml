@@ -3,11 +3,3 @@ server:
 spring:
   application:
     name: dubbo-provider
-dubbo:
-  scan:
-    base-packages: com.newtonk.provider
-  protocol:
-    name: dubbo
-    port: 12345
-  registry:
-    address: N/A
