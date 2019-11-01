@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class StreamTest {
     public static void main(String[] args) {
         StreamTest a = new StreamTest();
-        a.hashmapTest();
+        a.listReduce();
 
     }
     //Stream主要分中间操作和结果操作
@@ -106,6 +106,14 @@ public class StreamTest {
         List<Integer> ints = Lists.newArrayList(1,2,3,4,5,6,7,8,9,10);
         System.out.println("ints sum is:" + ints.stream().reduce(100, (sum, item) -> sum + item));
 
+    }
+
+    void listReduce(){
+        List<List<Integer>> integerList = Lists.newArrayList(Lists.newArrayList(1, 2, 3), Lists.newArrayList(4, 5, 6));
+        List<Integer> result = integerList.stream().reduce(new ArrayList<>(), (list, item) -> {
+            list.addAll(item); return list;
+        });
+        System.out.println(result);
     }
 
 
