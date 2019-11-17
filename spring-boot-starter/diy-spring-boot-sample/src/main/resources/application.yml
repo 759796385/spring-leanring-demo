@@ -1,0 +1,4 @@
+newtonk:
+  config:
+    enable: true
+    age: 22
