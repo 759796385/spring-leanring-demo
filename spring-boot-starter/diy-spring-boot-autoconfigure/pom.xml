@@ -29,13 +29,13 @@
             <artifactId>spring-boot-starter</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--用于生成配置元数据，用于ide配置时提示-->
+        <!--用于生成配置元数据，spring-configuration-metadata.json，用于ide配置时提示-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--编译后生成spring-autoconfigure-metadata.properties，sb启动检查元数据，不许实际检查类，加快启动速度-->
+        <!--编译后生成spring-autoconfigure-metadata.properties，sb启动检查元数据，不需实际检查类，加快启动速度-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure-processor</artifactId>
