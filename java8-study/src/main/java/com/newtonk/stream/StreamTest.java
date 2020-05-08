@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -113,6 +114,10 @@ public class StreamTest {
         List<Integer> result = integerList.stream().reduce(new ArrayList<>(), (list, item) -> {
             list.addAll(item); return list;
         });
+        System.out.println(result);
+
+        //用flatMap 更好
+        result = integerList.stream().flatMap(Collection::stream).collect(Collectors.toList());
         System.out.println(result);
     }
 
