@@ -33,6 +33,7 @@
         <module>spring-boot-starter/diy-spring-boot-starter</module>
         <module>spring-boot-starter/diy-spring-boot-autoconfigure</module>
         <module>spring-boot-starter/diy-spring-boot-sample</module>
+        <module>spring-websocket</module>
     </modules>
     <name>spring-core Maven Webapp</name>
     <url>http://maven.apache.org</url>
