@@ -14,7 +14,7 @@
     <properties>
         <!-- 这个build一定要写，在filter资源时碰到中文容易乱码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.3.21.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
     </properties>
 
     <profiles>
